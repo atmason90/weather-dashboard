@@ -12,3 +12,5 @@
     // weather condition icon
     // temperature
     // humidity
+// change current weather conditions and 5-day forecast when clicking on a list item from the city list
+    // event listener for click of one of the list items
