@@ -61,7 +61,29 @@ function getWeather() {
                     } else {
                         $("#currentUvi").attr("class", "bg-success")
                     }
-                    
+                    $("#forecastDate1").text(moment().add(1, 'day').format("MMM Do, YYYY"));
+                    $("#forecastDate2").text(moment().add(2, 'day').format("MMM Do, YYYY"));
+                    $("#forecastDate3").text(moment().add(3, 'day').format("MMM Do, YYYY"));
+                    $("#forecastDate4").text(moment().add(4, 'day').format("MMM Do, YYYY"));
+                    $("#forecastDate5").text(moment().add(5, 'day').format("MMM Do, YYYY"));
+
+                    $("#forecastIcon1").attr({"src":"http://openweathermap.org/img/wn/" + data.daily[1].weather[0].icon + "@2x.png", "width":"50px", "height":"50px"});
+                    $("#forecastIcon2").attr({"src":"http://openweathermap.org/img/wn/" + data.daily[2].weather[0].icon + "@2x.png", "width":"50px", "height":"50px"});
+                    $("#forecastIcon3").attr({"src":"http://openweathermap.org/img/wn/" + data.daily[3].weather[0].icon + "@2x.png", "width":"50px", "height":"50px"});
+                    $("#forecastIcon4").attr({"src":"http://openweathermap.org/img/wn/" + data.daily[4].weather[0].icon + "@2x.png", "width":"50px", "height":"50px"});
+                    $("#forecastIcon5").attr({"src":"http://openweathermap.org/img/wn/" + data.daily[5].weather[0].icon + "@2x.png", "width":"50px", "height":"50px"});
+
+                    $("#temp1").text("Temp: " + data.daily[1].temp.day + " °F");
+                    $("#temp2").text("Temp: " + data.daily[2].temp.day + " °F");
+                    $("#temp3").text("Temp: " + data.daily[3].temp.day + " °F");
+                    $("#temp4").text("Temp: " + data.daily[4].temp.day + " °F");
+                    $("#temp5").text("Temp: " + data.daily[5].temp.day + " °F");
+
+                    $("#hum1").text("Humidity: " + data.daily[1].humidity + "%");
+                    $("#hum2").text("Humidity: " + data.daily[2].humidity + "%");
+                    $("#hum3").text("Humidity: " + data.daily[3].humidity + "%");
+                    $("#hum4").text("Humidity: " + data.daily[4].humidity + "%");
+                    $("#hum5").text("Humidity: " + data.daily[5].humidity + "%");
                 })
         })
 };
