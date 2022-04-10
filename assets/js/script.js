@@ -21,22 +21,48 @@ function handleFormSubmit(event) {
     $("#cityName").text(cityInputEl);
     $("input[name='cityNameInput']").val("");
 
-    localStorage.setItem("city", cityInputEl);
+    localStorage.setItem("city", cityInputEl); //!!Need to fix to store more than one input
 }
 
 cityFormEl.on("submit", handleFormSubmit);
 
 // create a function to retrieve current date's weather data from openweather api
 function getWeather() {
-    // var currentDate = moment().format("MMM Do, YYYY");
-    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInputEl + "&units=imperial&appid=" + apiKey;
-    fetch(requestUrl)
+    var requestUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInputEl + "&units=imperial&appid=" + apiKey;
+    fetch(requestUrlCurrent)
         .then(function (response) {
             return response.json()
         })
         .then(function (data) {
-            console.log(data);
-
+            // console.log(data);
+            // for(var i = 0; i < data.length; i++) {
+            var latEl = data.coord.lat
+            var lonEl = data.coord.lon
+            // }
+            console.log(latEl);
+            console.log(lonEl);
+        
+            var requestUrlOneCall = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latEl + "&lon=" + lonEl + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + apiKey;
+            fetch(requestUrlOneCall)
+                .then(function (response) {
+                    return response.json()
+                })
+                .then(function (data) {
+                    console.log(data);
+                    $("#weatherIcon").attr({"src":"http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png", "width":"50px", "height":"50px"});
+                    $("#currentTemp").text("Temperature: " + data.current.temp + " °F");
+                    $("#currentHum").text("Humidity: " + data.current.humidity + "%");
+                    $("#currentWind").text("Wind Speed: " + data.current.wind_speed + " mph");
+                    $("#currentUvi").text("UV Index: " + data.current.uvi);
+                    if(data.current.uvi >= 6) {
+                        $("#currentUvi").attr("class", "bg-danger")
+                    } else if(data.current.uvi >= 3) {
+                        $("#currentUvi").attr("class", "bg-warning")
+                    } else {
+                        $("#currentUvi").attr("class", "bg-success")
+                    }
+                    
+                })
         })
 };
 
