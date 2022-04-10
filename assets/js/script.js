@@ -6,8 +6,8 @@ var cityInputEl = "";
 // open weather API key
 var apiKey = "5d3f99ab5fd7f2680c22569bca5f3130"
 var currentDate = moment().format("MMM Do, YYYY");
-$("#currentDate").text(currentDate);
-// $("#cityName").text(cityInputEl);
+// $("#currentDate").text(currentDate);
+
 
 // Take city from form input and append to ul element. Save to local storage
 function handleFormSubmit(event) {
@@ -17,7 +17,8 @@ function handleFormSubmit(event) {
     if(!cityInputEl) {
         return;
     }
-    cityListEl.append("<li>" + cityInputEl + "</li>");
+    cityListEl.prepend("<li>" + cityInputEl + "</li>");
+    $("li").attr("class", "list-group-item list-group-item-action");
     $("#cityName").text(cityInputEl);
     $("input[name='cityNameInput']").val("");
 
@@ -26,7 +27,7 @@ function handleFormSubmit(event) {
 
 cityFormEl.on("submit", handleFormSubmit);
 
-// create a function to retrieve current date's weather data from openweather api
+// create a function to retrieve weather data for current day and 5-day forecast
 function getWeather() {
     var requestUrlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInputEl + "&units=imperial&appid=" + apiKey;
     fetch(requestUrlCurrent)
@@ -34,11 +35,10 @@ function getWeather() {
             return response.json()
         })
         .then(function (data) {
-            // console.log(data);
-            // for(var i = 0; i < data.length; i++) {
+            console.log(data);
+            var cityName = data.name
             var latEl = data.coord.lat
             var lonEl = data.coord.lon
-            // }
             console.log(latEl);
             console.log(lonEl);
         
@@ -49,6 +49,8 @@ function getWeather() {
                 })
                 .then(function (data) {
                     console.log(data);
+                    $("#cityName").text(cityName);
+                    $("#currentDate").text(currentDate);
                     $("#weatherIcon").attr({"src":"http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png", "width":"50px", "height":"50px"});
                     $("#currentTemp").text("Temperature: " + data.current.temp + " °F");
                     $("#currentHum").text("Humidity: " + data.current.humidity + "%");
