@@ -71,6 +71,7 @@ function getWeather() {
                     $("#currentHum").text("Humidity: " + data.current.humidity + "%");
                     $("#currentWind").text("Wind Speed: " + data.current.wind_speed + " mph");
                     $("#currentUvi").text("UV Index: " + data.current.uvi);
+                    // set styling for UV Index
                     if(data.current.uvi >= 6) {
                         $("#currentUvi").attr("class", "bg-danger")
                     } else if(data.current.uvi >= 3) {
@@ -113,13 +114,9 @@ cityFormEl.on("submit", getWeather);
 
 // write function to click on list items to switch to weather for that city
 $("li").on("click", function () {
-    // cityInputEl = "";  tried clearing cityInputEl first, did not work
     var liEl = $(this).text();
     console.log($(this));
     cityInputEl = liEl
-    // console.log(cityInputEl);
     getWeather();
-})
+});
 
-// save city list items in local storage
-// get city list items from local storage so that list persists when page refreshes
