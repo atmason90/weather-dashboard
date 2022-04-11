@@ -1,12 +1,12 @@
 
+// declare global variables
 var cityFormEl = $("#cityInputForm");
 var cityListEl = $("#cityList");
 var input = $("#cityInput");
 var cityInputEl = "";
-// open weather API key
+    // open weather API key
 var apiKey = "5d3f99ab5fd7f2680c22569bca5f3130"
 var currentDate = moment().format("MMM Do, YYYY");
-// var searchedCities = [];
 
 // ternary statement for getting cities from local storage
 var searchedCities = (localStorage.getItem("city"))?JSON.parse(localStorage.getItem("city")):[];
@@ -119,8 +119,9 @@ cityFormEl.on("submit", getWeather);
 // write function to click on list items to switch to weather for that city
 $("li").on("click", function () {
     var liEl = $(this).text();
-    console.log($(this));
-    cityInputEl = liEl
+    console.log($(this).text());
+    cityInputEl = liEl;
+    console.log(cityInputEl);
     getWeather();
 });
 
