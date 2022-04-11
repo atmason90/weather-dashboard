@@ -1,7 +1,13 @@
 #weatherIcon {
-    width: 50px;
+    width: 100px;
+    height: 100px;
 }
 
 li {
     cursor: pointer;
+}
+
+.card {
+    width: 150px;
+    margin-bottom: 20px;
 }

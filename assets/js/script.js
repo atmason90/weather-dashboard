@@ -66,17 +66,18 @@ function getWeather() {
                     console.log(data);
                     $("#cityName").text(cityName);
                     $("#currentDate").text(currentDate);
-                    $("#weatherIcon").attr({"src":"http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png", "width":"50px", "height":"50px"});
+                    $("#weatherIcon").attr({"src":"http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png", "width":"100px", "height":"100px"});
                     $("#currentTemp").text("Temperature: " + data.current.temp + " °F");
                     $("#currentHum").text("Humidity: " + data.current.humidity + "%");
                     $("#currentWind").text("Wind Speed: " + data.current.wind_speed + " mph");
-                    $("#currentUvi").text("UV Index: " + data.current.uvi);
+                    $("#currentUvi").text("UV Index: ");
+                    $("#spanUvi").text(data.current.uvi);
                     if(data.current.uvi >= 6) {
-                        $("#currentUvi").attr("class", "bg-danger")
+                        $("#spanUvi").attr("class", "bg-danger")
                     } else if(data.current.uvi >= 3) {
-                        $("#currentUvi").attr("class", "bg-warning")
+                        $("#spanUvi").attr("class", "bg-warning")
                     } else {
-                        $("#currentUvi").attr("class", "bg-success")
+                        $("#spanUvi").attr("class", "bg-success")
                     }
                     // set dates for 5-day forecast
                     $("#forecastDate1").text(moment().add(1, 'day').format("MMM Do, YYYY"));
