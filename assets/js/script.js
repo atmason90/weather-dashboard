@@ -70,14 +70,13 @@ function getWeather() {
                     $("#currentTemp").text("Temperature: " + data.current.temp + " °F");
                     $("#currentHum").text("Humidity: " + data.current.humidity + "%");
                     $("#currentWind").text("Wind Speed: " + data.current.wind_speed + " mph");
-                    $("#currentUvi").text("UV Index: ");
-                    $("#spanUvi").text(data.current.uvi);
+                    $("#currentUvi").text("UV Index: " + data.current.uvi);
                     if(data.current.uvi >= 6) {
-                        $("#spanUvi").attr("class", "bg-danger")
+                        $("#currentUvi").attr("class", "bg-danger")
                     } else if(data.current.uvi >= 3) {
-                        $("#spanUvi").attr("class", "bg-warning")
+                        $("#currentUvi").attr("class", "bg-warning")
                     } else {
-                        $("#spanUvi").attr("class", "bg-success")
+                        $("#currentUvi").attr("class", "bg-success")
                     }
                     // set dates for 5-day forecast
                     $("#forecastDate1").text(moment().add(1, 'day').format("MMM Do, YYYY"));
