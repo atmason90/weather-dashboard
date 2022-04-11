@@ -6,23 +6,38 @@ var cityInputEl = "";
 // open weather API key
 var apiKey = "5d3f99ab5fd7f2680c22569bca5f3130"
 var currentDate = moment().format("MMM Do, YYYY");
-// $("#currentDate").text(currentDate);
+// var searchedCities = [];
+
+var searchedCities = (localStorage.getItem("city"))?JSON.parse(localStorage.getItem("city")):[];
+
+populateCityList();
+
+function populateCityList () {
+    cityListEl.html("")
+    $(searchedCities).each(function (i, el) {
+        cityListEl.prepend("<li>" + el + "</li>");
+    })
+    $("li").attr("class", "list-group-item list-group-item-action");
+};
 
 
 // Take city from form input and append to ul element. Save to local storage
 function handleFormSubmit(event) {
     event.preventDefault();
     cityInputEl = $("#cityInput").val().trim();
+    if(!searchedCities.includes(cityInputEl)) {
+    searchedCities.push(cityInputEl)}
+   
     console.log(cityInputEl);
     if(!cityInputEl) {
         return;
     }
-    cityListEl.prepend("<li>" + cityInputEl + "</li>");
-    $("li").attr("class", "list-group-item list-group-item-action");
+    populateCityList();
+   
     $("#cityName").text(cityInputEl);
     $("input[name='cityNameInput']").val("");
 
-    localStorage.setItem("city", cityInputEl); //!!Need to fix to store more than one input
+    localStorage.setItem("city", JSON.stringify(searchedCities)); 
 }
 
 cityFormEl.on("submit", handleFormSubmit);
@@ -97,11 +112,14 @@ function getWeather() {
 cityFormEl.on("submit", getWeather);
 
 // write function to click on list items to switch to weather for that city
-$(".list-group-item").on("click", function () {
-    cityInputEl = $(this).val();
-    console.log(cityInputEl);
+$("li").on("click", function () {
+    // cityInputEl = "";  tried clearing cityInputEl first, did not work
+    var liEl = $(this).text();
+    console.log($(this));
+    cityInputEl = liEl
+    // console.log(cityInputEl);
     getWeather();
-});
+})
 
 // save city list items in local storage
 // get city list items from local storage so that list persists when page refreshes
