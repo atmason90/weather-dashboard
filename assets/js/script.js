@@ -8,10 +8,13 @@ var apiKey = "5d3f99ab5fd7f2680c22569bca5f3130"
 var currentDate = moment().format("MMM Do, YYYY");
 // var searchedCities = [];
 
+// ternary statement for getting cities from local storage
 var searchedCities = (localStorage.getItem("city"))?JSON.parse(localStorage.getItem("city")):[];
 
+// run function to populate city list
 populateCityList();
 
+// populate list with searched cities
 function populateCityList () {
     cityListEl.html("")
     $(searchedCities).each(function (i, el) {
@@ -37,6 +40,7 @@ function handleFormSubmit(event) {
     $("#cityName").text(cityInputEl);
     $("input[name='cityNameInput']").val("");
 
+    // set Items in local storage
     localStorage.setItem("city", JSON.stringify(searchedCities)); 
 }
 
