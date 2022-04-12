@@ -21,6 +21,14 @@ function populateCityList () {
         cityListEl.prepend("<li>" + el + "</li>");
     })
     $("li").attr("class", "list-group-item list-group-item-action");
+
+    $("li").on("click", function () {
+        var liEl = $(this).text();
+        console.log($(this).text());
+        cityInputEl = liEl;
+        console.log(cityInputEl);
+        getWeather();
+    });
 };
 
 
@@ -116,12 +124,4 @@ function getWeather() {
 
 cityFormEl.on("submit", getWeather);
 
-// write function to click on list items to switch to weather for that city
-$("li").on("click", function () {
-    var liEl = $(this).text();
-    console.log($(this).text());
-    cityInputEl = liEl;
-    console.log(cityInputEl);
-    getWeather();
-});
 
